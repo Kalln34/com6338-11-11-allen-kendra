@@ -9,17 +9,17 @@ const pipe = (...fns) => firstArg => fns.reduce((returnValue, fn) => fn(returnVa
 const makeTag = tag => str => `<${tag}>${str}</${tag}>`
 
 // complete this function
-const makePoemHTML = () => {}
+const makePoemHTML = () => {
   const poem = poemJSON[0];
 
   const makeH2 = makeTag('h2');
   const makeEm = makeTag('em');
   const makeH3 = makeTag('h3');
-  const makep = makeTag('p');
+  const makeP = makeTag('p');
 
   const titleHTML = makeH2(poem.title);
   const authorHTML = pipe(
-    name => 'by ${name}',
+    name => `by ${name}`,
     makeEm,
     makeH3
   ) (poem.author);
@@ -40,6 +40,27 @@ const makePoemHTML = () => {}
   if (currentStanza.length > 0) {
     stanzas.push(currentStanza);
   }
+
+  let stanzaHTML = '';
+
+  for (const stanza of stanzas) {
+    let stanzaContent = '';
+
+    for (let i = 0; i < stanza.length; i++) {
+      const line = stanza[i];
+      stanzaContent += line;
+
+      if (i !== stanza.length -1) {
+        stanzaContent += '<br>';
+      }
+    }
+
+    stanzaHTML += makeP(stanzaContent);
+  }
+  
+  return titleHTML + authorHTML + stanzaHTML;
+};
+
 
 // attach a click event to #get-poem
 getPoemBtn.onclick = async function() {
