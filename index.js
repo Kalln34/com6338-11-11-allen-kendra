@@ -9,7 +9,7 @@ const pipe = (...fns) => firstArg => fns.reduce((returnValue, fn) => fn(returnVa
 const makeTag = tag => str => `<${tag}>${str}</${tag}>`
 
 // complete this function
-const makePoemHTML = () => {
+const makePoemHTML = (poemJSON) => {
   const poem = poemJSON[0];
 
   const makeH2 = makeTag('h2');
@@ -50,7 +50,7 @@ const makePoemHTML = () => {
       const line = stanza[i];
       stanzaContent += line;
 
-      if (i !== stanza.length -1) {
+      if (i !== stanza.length - 1) {
         stanzaContent += '<br>';
       }
     }
